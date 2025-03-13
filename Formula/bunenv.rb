@@ -1,8 +1,8 @@
 class Bunenv < Formula
   desc "Version manager for Bun, inspired by rbenv and pyenv"
   homepage "https://github.com/jonathanphilippou/bunenv"
-  url "https://github.com/jonathanphilippou/bunenv/archive/refs/tags/v0.2.3.tar.gz"
-  sha256 "b2310babe55612dbcabeb7b26c44b59df5a4779f37eb5a89f08a1e21c9483d6f"
+  url "https://github.com/jonathanphilippou/bunenv/archive/refs/tags/v0.2.4.tar.gz"
+  sha256 "45d6ceb5cfba40ce057b933c95d0ac569071e2557b10f62bf209c2d8157a1d80"
   license "MIT"
 
   depends_on "node"
@@ -12,7 +12,7 @@ class Bunenv < Formula
     (bin/"bunenv").write <<~EOS
       #!/usr/bin/env node
 
-      console.log("bunenv v0.2.3");
+      console.log("bunenv v0.2.4");
       console.log("This is a placeholder implementation. Full functionality coming soon.");
     EOS
 
@@ -24,6 +24,6 @@ class Bunenv < Formula
   end
 
   test do
-    assert_match "v0.2.3", shell_output("#{bin}/bunenv --version")
+    assert_match "v0.2.4", shell_output("#{bin}/bunenv --version")
   end
 end 
