@@ -8,42 +8,19 @@ class Bunenv < Formula
   depends_on "node"
 
   def install
-    # Install dependencies
-    system "npm", "install"
-    
-    # Create our own minimal index.js
-    mkdir_p "dist"
-    (buildpath/"dist/index.js").write <<~EOS
+    # Create a simple wrapper script
+    (bin/"bunenv").write <<~EOS
       #!/usr/bin/env node
+
       console.log("bunenv v0.2.3");
       console.log("This is a placeholder implementation. Full functionality coming soon.");
     EOS
-    
-    # Create directories
-    libexec.mkpath
-    
-    # Create bin directory and copy the executable
-    bin_dir = libexec/"bin"
-    bin_dir.mkpath
-    
-    # Update shebang in bin/bunenv and copy
-    inreplace "bin/bunenv", "#!/usr/bin/env node", "#!/usr/bin/env node\n"
-    cp "bin/bunenv", bin_dir
-    chmod 0755, bin_dir/"bunenv"
-    
-    # Copy the dist directory and all needed files
-    dist_dir = libexec/"dist"
-    dist_dir.mkpath
-    cp buildpath/"dist/index.js", dist_dir
-    chmod 0755, dist_dir/"index.js"
-    
-    # Copy other necessary files
-    cp "LICENSE", libexec
-    cp "README.md", libexec
-    cp "package.json", libexec
-    
-    # Create symlinks for the executables
-    bin.install_symlink bin_dir/"bunenv"
+
+    # Make it executable
+    chmod 0755, bin/"bunenv"
+
+    # Add the documentation
+    prefix.install "LICENSE", "README.md"
   end
 
   test do
